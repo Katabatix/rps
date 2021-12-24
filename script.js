@@ -30,6 +30,15 @@ function play(playerSelection){
     }
 }
 
-let input = prompt("Enter Rock, Paper, or Scissors");
-console.log("Player: " + input);
-console.log(play(input));
+function printout(string){
+    console.log(string);
+}
+
+// let input = prompt("Enter Rock, Paper, or Scissors");
+// console.log("Player: " + input);
+// console.log(play(input));
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => console.log(button.textContent));
+buttons.forEach(button => button.addEventListener('click', function(){printout(play(`${button.textContent}`))}));
+
