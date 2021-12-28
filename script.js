@@ -30,6 +30,7 @@ function play(playerSelection){
     }
 }
 
+<<<<<<< HEAD
 function printout(string){
     console.log(string);
 }
@@ -42,3 +43,10 @@ const buttons = document.querySelectorAll("button");
 buttons.forEach(button => console.log(button.textContent));
 buttons.forEach(button => button.addEventListener('click', function(){printout(play(`${button.textContent}`))}));
 
+=======
+let input = prompt("Enter Rock, Paper, or Scissors");
+console.log("Player: " + input);
+console.log(play(input));
+
+//hi
+>>>>>>> rps-ui
