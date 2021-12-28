@@ -1,7 +1,9 @@
-function play(playerSelection){
-    playerSelection = playerSelection.toLowerCase();
-    if(playerSelection != "rock" && playerSelection != "scissors" && playerSelection != "paper") return "Invalid selection";
+const scoreToWin = 3;
+let playerScore = 0;
+let compScore = 0;
 
+function play(playerSelection){    
+    // computer selection
     let computerSelection = Math.floor(Math.random()*3);
     switch(computerSelection){
         case 0:
@@ -14,39 +16,80 @@ function play(playerSelection){
             computerSelection = "scissors";
             break;
     }
-    console.log("Computer: " + computerSelection);
+    
+    // parse player selection
+    playerSelection = playerSelection.toLowerCase();
+    
+    console.log("Computer: " + computerSelection + " Player: " + playerSelection);
 
+    // game decision
     if(playerSelection == computerSelection){
         return "Tie! Redo";
     }else if((playerSelection == "rock" || computerSelection == "rock") && (playerSelection == "scissors" || computerSelection == "scissors")){
-        if(playerSelection == "rock") return "You win!";
-        else return "Computer Wins!";
+        if(playerSelection == "rock"){
+            playerScore++;
+            return "Player wins!";
+        }
+        else{
+            compScore++;
+            return "Computer wins!";
+        } 
     }else if((playerSelection == "scissors" || computerSelection == "scissors") && (playerSelection == "paper" || computerSelection == "paper")){
-        if(playerSelection == "scissors") return "You win!";
-        else return "Computer Wins!";
+        if(playerSelection == "scissors"){
+            playerScore++;
+            return "Player wins!";
+        } 
+        else{
+            compScore++;
+            return "Computer wins!";
+        }
     }else if((playerSelection == "paper" || computerSelection == "paper") && (playerSelection == "rock" || computerSelection == "rock")){
-        if(playerSelection == "paper") return "You win!";
-        else return "Computer Wins!";
+        if(playerSelection == "paper"){
+            playerScore++;
+            return "Player wins!";
+        } 
+        else{
+            compScore++;
+            return "Computer wins!";
+        } 
     }
 }
 
-<<<<<<< HEAD
-function printout(string){
-    console.log(string);
+function updateScore(){
+    document.getElementById("compScore").textContent = "Computer: " + compScore;
+    document.getElementById("playerScore").textContent = "Player: " + playerScore;
 }
 
-// let input = prompt("Enter Rock, Paper, or Scissors");
-// console.log("Player: " + input);
-// console.log(play(input));
+function printout(string){
+    console.log(string);
+    updateScore();
+     //win condition
+     if(playerScore >= scoreToWin){
+        document.getElementById("h1").textContent = "Player Wins!";
+        document.querySelectorAll(".gameButtons").forEach(button => button.style.display = "none");
+        console.log("Game over!");
+    }
+    if(compScore >= scoreToWin){
+        document.getElementById("h1").textContent = "Computer Wins!";
+        document.querySelectorAll(".gameButtons").forEach(button => button.style.display = "none");
+        console.log("Game over!");
+    }
+}
 
-const buttons = document.querySelectorAll("button");
-buttons.forEach(button => console.log(button.textContent));
+function resetGame(){
+    compScore = 0;
+    playerScore = 0;
+    updateScore();
+    document.querySelectorAll(".gameButtons").forEach(button => button.style.display = "block");
+    document.getElementById("h1").textContent = "Score:";
+    console.log("Resetting")
+}
+
+
+// set up buttons
+const buttons = document.querySelectorAll(".gameButtons");
 buttons.forEach(button => button.addEventListener('click', function(){printout(play(`${button.textContent}`))}));
+document.querySelectorAll(".gameButtons").forEach(button => button.style.display = "block");
 
-=======
-let input = prompt("Enter Rock, Paper, or Scissors");
-console.log("Player: " + input);
-console.log(play(input));
-
-//hi
->>>>>>> rps-ui
+const resetButton = document.querySelector("#reset");
+resetButton.addEventListener('click', resetGame);
